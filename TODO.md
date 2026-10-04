@@ -1,0 +1,10 @@
+# Goldstar Banepa Loyalty — Delivery Outcomes
+
+- **Foundation and Supabase-safe shell:** Vite + React + TypeScript app uses the required dependencies, a single `src/lib/supabase.ts`, browser-safe credential resolution, Connect screen fallback, auth/session/profile guards, role-aware responsive navigation, Kathmandu date/currency helpers, route manifest, diagnostics, loading/empty/error states, and no service-role key or mock data in frontend source.
+- **Customer operations:** Dashboard, debounced typo-tolerant global search, server-paginated customers table with filters/sorting/CSV, validated customer creation and duplicate handling, customer profile with stamp card/metrics/tabs, and manager pair adjustments.
+- **Counter sale workflow:** Touch-friendly customer/item/discount/payment flow uses DB-owned totals and discount RPCs, one-discount enforcement, customer-choice reward, server-decided spin wheel with confetti and no re-spin, retry-without-duplicate flow, and printable thermal receipt.
+- **Sales, birthdays, messaging:** Server-paginated sales and manager voids; birthday occurrence/coupon generation/cancellation; message log table, consent-aware queue dialog, queued/failed send and retry actions through Edge Functions.
+- **Legacy import and reports:** CSV mapping/validation/duplicate warnings/chunk staging/processing/error download/sample CSV; reports with date range KPIs, charts, CSV exports, and database-backed aggregations.
+- **Administration:** Settings, tiers, wheel segments with live probabilities, templates with preview, staff management through create-staff, audit log, and setup/health diagnostics.
+- **Edge Functions and docs:** send-sms, daily-job, create-staff with CORS/ping/auth/role/cron/service-role isolation, and `docs/SETUP.md` covering Supabase setup, secrets, deployment, first admin, and pg_cron schedule.
+- **Verification and delivery:** Type diagnostics, production build, manifest and source inspections, Preview readiness, exact contract validation, and managed canonical checkpoint.
