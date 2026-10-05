@@ -7,7 +7,7 @@ export default {
     extend: {
       colors: {
         ink: '#000000',
-        gold: '#30318F',
+        gold: '#0E4C92',
         paper: '#FFFFFF',
         sand: '#FFFFFF',
         graphite: '#000000',

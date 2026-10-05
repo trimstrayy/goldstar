@@ -3,18 +3,18 @@ import { LoaderCircle, Search, Sparkles, type LucideIcon } from 'lucide-react'
 import { cls } from '../../lib/utils'
 
 export function Button({ className, variant = 'primary', size = 'md', loading, children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'; size?: 'sm' | 'md' | 'lg'; loading?: boolean }) {
-  const variants = { primary: 'bg-ink text-paper hover:bg-ink/90 shadow-sm', secondary: 'bg-gold text-ink hover:bg-[#25266F]', ghost: 'bg-transparent text-graphite hover:bg-sand/60', danger: 'bg-ink text-paper hover:bg-ink/90', outline: 'border border-line bg-transparent text-ink hover:border-gold hover:bg-gold/5 dark:text-paper dark:border-gold' }
+  const variants = { primary: 'bg-ink text-paper hover:bg-ink/90 shadow-sm', secondary: 'bg-gold text-ink hover:bg-[#0E4C92]', ghost: 'bg-transparent text-graphite hover:bg-sand/60', danger: 'bg-ink text-paper hover:bg-ink/90', outline: 'border border-line bg-transparent text-ink hover:border-gold hover:bg-gold/5 dark:text-paper dark:border-gold' }
   const sizes = { sm: 'h-9 px-3 text-xs', md: 'h-11 px-4 text-sm', lg: 'h-13 px-5 text-base' }
   return <button className={cls('inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50', variants[variant], sizes[size], className)} disabled={loading || props.disabled} {...props}>{loading && <LoaderCircle size={16} className="animate-spin" />}{children}</button>
 }
 
 export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'gold' | 'green' | 'red' | 'blue' }) {
-  const tones = { neutral: 'bg-sand text-graphite', gold: 'bg-gold/15 text-[#30318F]', green: 'bg-[#EEF0FF] text-[#30318F]', red: 'bg-black text-white', blue: 'bg-[#EEF0FF] text-[#30318F]' }
+  const tones = { neutral: 'bg-sand text-graphite', gold: 'bg-gold/15 text-[#0E4C92]', green: 'bg-[#0E4C92]/10 text-[#0E4C92]', red: 'bg-black text-white', blue: 'bg-[#0E4C92]/10 text-[#0E4C92]' }
   return <span className={cls('inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[.08em]', tones[tone])}>{children}</span>
 }
 
 export function Panel({ children, className, title, eyebrow, action }: { children: ReactNode; className?: string; title?: string; eyebrow?: string; action?: ReactNode }) {
-  return <section className={cls('surface rounded-2xl border border-line bg-white/80 p-5 shadow-soft dark:bg-[#000000]', className)}>{(title || eyebrow || action) && <div className="mb-5 flex items-start justify-between gap-3"><div>{eyebrow && <p className="mb-1 text-[10px] font-bold uppercase tracking-[.16em] text-gold">{eyebrow}</p>}{title && <h2 className="font-display text-xl text-ink dark:text-paper">{title}</h2>}</div>{action}</div>}{children}</section>
+  return <section className={cls('surface rounded-2xl border border-line bg-white/80 p-5 shadow-soft dark:bg-[#000000]', className)}>{(title || eyebrow || action) && <div className="mb-5 flex items-start justify-between gap-3"><div>{eyebrow && <p className="mb-1 text-[10px] font-bold uppercase tracking-[.16em] text-gold">{eyebrow}</p>}{title && <h2 className="font-display text-xl text-inherit">{title}</h2>}</div>{action}</div>}{children}</section>
 }
 
 export function EmptyState({ icon: Icon = Sparkles, title, description, action }: { icon?: LucideIcon; title: string; description: string; action?: ReactNode }) {
