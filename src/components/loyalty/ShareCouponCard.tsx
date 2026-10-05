@@ -21,6 +21,7 @@ type ShareCouponCardProps = {
   size?: 'sm' | 'md'
 }
 
+const BLUE = '#0E4C92'
 const FALLBACK_MESSAGE = 'Happy birthday, {{name}}! Congratulations on your Goldstar gift — you have earned a {{discount}}% birthday reward.'
 
 function cleanMessage(message: string, coupon: ShareCoupon, shopName: string) {
@@ -43,8 +44,15 @@ export function ShareCouponCard({ coupon, message, shopName = 'Goldstar Banepa',
     if (!cardRef.current) return
     setSharing(true)
     try {
-      const blob = await toBlob(cardRef.current, { pixelRatio: 2, cacheBust: true, backgroundColor: '#FFFFFF' })
-      if (!blob) throw new Error('The coupon card could not be prepared.')
+      const logo = cardRef.current.querySelector('img')
+      if (logo && !logo.complete) await logo.decode().catch(() => undefined)
+      const blob = await toBlob(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: '#FFFFFF',
+        style: { transform: 'none', opacity: '1', visibility: 'visible' },
+      })
+      if (!blob || blob.size < 1000) throw new Error('The coupon card image was empty. Please try again.')
       const file = new File([blob], `goldstar-birthday-${coupon.coupon_code}.png`, { type: 'image/png' })
       const shareData = { title: `${shopName} birthday reward`, text: shareText, files: [file] }
       if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
@@ -58,7 +66,9 @@ export function ShareCouponCard({ coupon, message, shopName = 'Goldstar Banepa',
         const link = document.createElement('a')
         link.href = url
         link.download = file.name
+        document.body.appendChild(link)
         link.click()
+        link.remove()
         URL.revokeObjectURL(url)
         await navigator.clipboard?.writeText(shareText)
         onToast?.({ message: 'Coupon card downloaded and sharing text copied.', tone: 'success' })
@@ -73,25 +83,25 @@ export function ShareCouponCard({ coupon, message, shopName = 'Goldstar Banepa',
 
   return <>
     <Button size={size} variant="secondary" loading={sharing} onClick={share}><Share2 size={14} /> Share card</Button>
-    <div ref={cardRef} aria-hidden="true" className="pointer-events-none fixed left-[-10000px] top-0 z-[-1] w-[720px] bg-white p-12 text-black">
-      <div className="border-[3px] border-[#0E4C92] p-8">
-        <div className="flex items-center justify-between border-b-2 border-black pb-6">
-          <div className="flex items-center gap-4">
-            <img src="/goldstar-logo.png" alt="Goldstar" className="h-16 w-auto object-contain" />
-            <div><p className="text-xs font-bold uppercase tracking-[.24em] text-[#0E4C92]">Birthday reward</p><p className="mt-1 text-sm font-semibold">{shopName}</p></div>
+    <div ref={cardRef} aria-hidden="true" style={{ position: 'fixed', left: '-10000px', top: 0, width: 720, padding: 48, background: '#FFFFFF', color: '#000000', zIndex: -1, pointerEvents: 'none', fontFamily: 'Arial, sans-serif' }}>
+      <div style={{ border: `3px solid ${BLUE}`, padding: 32, background: '#FFFFFF' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #000000', paddingBottom: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <img src="/goldstar-logo.png" alt="Goldstar" style={{ display: 'block', width: 180, height: 72, objectFit: 'contain' }} />
+            <div><p style={{ margin: 0, color: BLUE, fontSize: 12, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Birthday reward</p><p style={{ margin: '8px 0 0', fontSize: 16, fontWeight: 700 }}>{shopName}</p></div>
           </div>
-          <div className="rounded-full bg-[#0E4C92] px-5 py-3 text-2xl font-bold text-white">{coupon.discount_pct || 0}% OFF</div>
+          <div style={{ borderRadius: 999, background: BLUE, color: '#FFFFFF', padding: '14px 20px', fontSize: 26, fontWeight: 700, whiteSpace: 'nowrap' }}>{coupon.discount_pct || 0}% OFF</div>
         </div>
-        <div className="grid grid-cols-[1fr_auto] gap-8 py-8">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 230px', gap: 32, padding: '32px 0' }}>
           <div>
-            <p className="text-4xl font-bold">Happy birthday, {customerName}!</p>
-            <p className="mt-5 text-xl leading-8">{greeting}</p>
-            <p className="mt-5 text-lg font-bold">Congratulations on your Goldstar gift.</p>
-            <div className="mt-8 border-y-2 border-black py-5 text-lg"><p><span className="font-bold">Coupon code:</span> {coupon.coupon_code}</p><p className="mt-2"><span className="font-bold">Valid on:</span> {coupon.valid_on ? formatDate(coupon.valid_on) : 'Today'}</p></div>
+            <p style={{ margin: 0, fontSize: 34, lineHeight: 1.15, fontWeight: 700 }}>Happy birthday, {customerName}!</p>
+            <p style={{ margin: '20px 0 0', fontSize: 20, lineHeight: 1.55 }}>{greeting}</p>
+            <p style={{ margin: '20px 0 0', fontSize: 18, lineHeight: 1.4, fontWeight: 700 }}>Congratulations on your Goldstar gift.</p>
+            <div style={{ marginTop: 32, borderTop: '2px solid #000000', borderBottom: '2px solid #000000', padding: '18px 0', fontSize: 18, lineHeight: 1.5 }}><p style={{ margin: 0 }}><strong>Coupon code:</strong> {coupon.coupon_code}</p><p style={{ margin: '8px 0 0' }}><strong>Valid on:</strong> {coupon.valid_on ? formatDate(coupon.valid_on) : 'Today'}</p></div>
           </div>
-          <div className="flex flex-col items-center gap-4"><div className="border-2 border-black bg-white p-3"><QRCodeSVG value={createCouponPayload(coupon)} size={190} includeMargin bgColor="#FFFFFF" fgColor="#000000" /></div><p className="text-center text-xs font-bold uppercase tracking-[.16em]">Scan to redeem</p></div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}><div style={{ border: '2px solid #000000', background: '#FFFFFF', padding: 12 }}><QRCodeSVG value={createCouponPayload(coupon)} size={190} includeMargin bgColor="#FFFFFF" fgColor="#000000" /></div><p style={{ margin: 0, textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase' }}>Scan to redeem</p></div>
         </div>
-        <div className="border-t-2 border-black pt-5 text-sm font-semibold">Present this card at the Goldstar counter. Your discount is verified securely at redemption.</div>
+        <div style={{ borderTop: '2px solid #000000', paddingTop: 18, fontSize: 14, lineHeight: 1.5, fontWeight: 700 }}>Present this card at the Goldstar counter. Your discount is verified securely at redemption.</div>
       </div>
     </div>
   </>
