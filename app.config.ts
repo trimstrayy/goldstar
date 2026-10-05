@@ -1,3 +1,3 @@
 export default {
-  logoUrl: "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/2b50.svg"
+  logoUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663998683284/naXquJcrLpFiaaPV.png"
 }

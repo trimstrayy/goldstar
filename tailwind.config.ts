@@ -6,20 +6,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0D0D0D',
-        gold: '#D4AF37',
-        paper: '#FAF8F3',
-        sand: '#F1EBDD',
-        graphite: '#666158',
-        line: '#E7DFD1'
+        ink: '#000000',
+        gold: '#30318F',
+        paper: '#FFFFFF',
+        sand: '#FFFFFF',
+        graphite: '#000000',
+        line: '#000000'
       },
       fontFamily: {
         display: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['DM Sans', 'Inter', 'ui-sans-serif', 'system-ui']
       },
       boxShadow: {
-        soft: '0 18px 55px rgba(13,13,13,.08)',
-        gold: '0 10px 32px rgba(212,175,55,.18)'
+        soft: '0 18px 55px rgba(0,0,0,.14)',
+        gold: '0 10px 32px rgba(0,0,0,.22)'
       },
       borderRadius: { xl2: '1.25rem' }
     }

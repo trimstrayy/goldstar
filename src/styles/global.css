@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { font-family: 'DM Sans', Inter, sans-serif; color: #0D0D0D; background: #FAF8F3; font-synthesis: none; text-rendering: optimizeLegibility; }
+:root { font-family: 'DM Sans', Inter, sans-serif; color: #000000; background: #FFFFFF; font-synthesis: none; text-rendering: optimizeLegibility; }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: #FAF8F3; }
+body { margin: 0; min-width: 320px; background: #FFFFFF; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 ::selection { background: rgba(212,175,55,.35); }
-.dark body { background: #121212; color: #F7F1E7; }
+.dark body { background: #000000; color: #FFFFFF; }
 .dark { color-scheme: dark; }
-.dark .surface { background: #1A1A1A; border-color: #333; }
-.dark .muted-surface { background: #202020; border-color: #333; }
-.dark .text-ink { color: #F7F1E7; }
-.dark .text-graphite { color: #BDB5A8; }
+.dark .surface { background: #000000; border-color: #000000; }
+.dark .muted-surface { background: #000000; border-color: #000000; }
+.dark .text-ink { color: #FFFFFF; }
+.dark .text-graphite { color: #000000; }
 .gold-rule { position: relative; }
-.gold-rule::after { content: ''; display: block; width: 44px; height: 3px; margin-top: 10px; background: #D4AF37; border-radius: 999px; }
+.gold-rule::after { content: ''; display: block; width: 44px; height: 3px; margin-top: 10px; background: #30318F; border-radius: 999px; }
 input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid rgba(212,175,55,.8); outline-offset: 2px; }
 .stamp-glow { box-shadow: 0 0 0 5px rgba(212,175,55,.11), 0 12px 28px rgba(212,175,55,.2); }
 @media print {
