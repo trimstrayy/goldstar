@@ -15,11 +15,22 @@ export const parseCouponPayload = (raw: string): CouponQrPayload | null => {
   try {
     const url = new URL(value.replace(/^goldstar:\/\//, 'https://goldstar.local/'))
     const code = url.searchParams.get('code') || url.searchParams.get('coupon_code')
-    return code ? { code, valid_on: url.searchParams.get('valid_on') || undefined, discount: Number(url.searchParams.get('discount')) || undefined } : null
+    if (!code) return null
+    const payload: CouponQrPayload = { code }
+    const validOn = url.searchParams.get('valid_on')
+    const discountRaw = url.searchParams.get('discount')
+    const discount = discountRaw ? Number(discountRaw) : NaN
+    if (validOn) payload.valid_on = validOn
+    if (Number.isFinite(discount)) payload.discount = discount
+    return payload
   } catch {
     try {
       const parsed = JSON.parse(value) as Partial<CouponQrPayload>
-      return parsed.code ? { code: String(parsed.code), valid_on: parsed.valid_on, discount: parsed.discount } : null
+      if (!parsed.code) return null
+      const payload: CouponQrPayload = { code: String(parsed.code) }
+      if (parsed.valid_on) payload.valid_on = String(parsed.valid_on)
+      if (typeof parsed.discount === 'number' && Number.isFinite(parsed.discount)) payload.discount = parsed.discount
+      return payload
     } catch {
       return { code: value }
     }
