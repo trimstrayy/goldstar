@@ -8,3 +8,7 @@
 - **Administration:** Settings, tiers, wheel segments with live probabilities, templates with preview, staff management through create-staff, audit log, and setup/health diagnostics.
 - **Edge Functions and docs:** send-sms, daily-job, create-staff with CORS/ping/auth/role/cron/service-role isolation, and `docs/SETUP.md` covering Supabase setup, secrets, deployment, first admin, and pg_cron schedule.
 - **Verification and delivery:** Type diagnostics, production build, manifest and source inspections, Preview readiness, exact contract validation, and managed canonical checkpoint.
+
+- **Loyalty-first information architecture:** Make loyalty progress, reward-ready customers, birthday customers, coupon lifecycle, and discount activity the primary dashboard/sidebar experience; retain sales as a secondary redemption/audit area.
+- **Birthday message portal:** Merge birthday and message workflows so clicking a birthday customer opens an editable birthday message portal that loads the active template, renders supported placeholders, respects SMS consent, and queues the edited message into `message_log`.
+- **Working coupon generation and QR digital coupons:** Generate birthday coupons through `generate_birthday_coupons({p_days_ahead})`, refresh and display the database-issued coupon rows, attach a QR code encoding the coupon code/payload to each digital coupon, and provide a scan/paste redemption flow that validates the exact coupon and applies its database-owned discount through `apply_birthday_coupon({p_code,p_sale_id})` without client-side discount math.
