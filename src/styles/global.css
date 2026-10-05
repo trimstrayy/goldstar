@@ -7,17 +7,19 @@
 body { margin: 0; min-width: 320px; background: #FFFFFF; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
-::selection { background: rgba(212,175,55,.35); }
+::selection { background: rgba(48,49,143,.35); }
 .dark body { background: #000000; color: #FFFFFF; }
 .dark { color-scheme: dark; }
-.dark .surface { background: #000000; border-color: #000000; }
-.dark .muted-surface { background: #000000; border-color: #000000; }
+.dark .surface { background: #000000; border-color: #30318F; }
+.dark .muted-surface { background: #000000; border-color: #30318F; }
 .dark .text-ink { color: #FFFFFF; }
-.dark .text-graphite { color: #000000; }
+.dark .text-graphite { color: #FFFFFF; }
+.dark .border-line { border-color: #30318F; }
+.dark .divide-line > :not([hidden]) ~ :not([hidden]) { border-color: #30318F; }
 .gold-rule { position: relative; }
 .gold-rule::after { content: ''; display: block; width: 44px; height: 3px; margin-top: 10px; background: #30318F; border-radius: 999px; }
-input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid rgba(212,175,55,.8); outline-offset: 2px; }
-.stamp-glow { box-shadow: 0 0 0 5px rgba(212,175,55,.11), 0 12px 28px rgba(212,175,55,.2); }
+input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid rgba(48,49,143,.8); outline-offset: 2px; }
+.stamp-glow { box-shadow: 0 0 0 5px rgba(48,49,143,.11), 0 12px 28px rgba(0,0,0,.2); }
 @media print {
   body * { visibility: hidden; }
   .print-receipt, .print-receipt * { visibility: visible; }
