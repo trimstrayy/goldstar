@@ -8,10 +8,8 @@ import { cls } from '../../lib/utils'
 
 const nav = [
   { to: '/', label: 'Loyalty overview', icon: LayoutDashboard, section: 'dashboard' },
-  { to: '/customers', label: 'Customers & stamps', icon: Users, section: 'customers' },
+  { to: '/customers', label: 'Customers', icon: Users, section: 'customers' },
   { to: '/birthdays', label: 'Birthdays & messages', icon: Cake, section: 'birthdays', accent: true },
-  { to: '/new-sale', label: 'Redeem discount', icon: Gift, section: 'sales' },
-  { to: '/sales', label: 'Sales ledger', icon: Gift, section: 'sales' },
   { to: '/legacy-import', label: 'Legacy import', icon: Command, section: 'legacy-import' },
   { to: '/reports', label: 'Discount reports', icon: Command, section: 'reports' },
   { to: '/settings', label: 'Settings', icon: Settings, section: 'settings' },

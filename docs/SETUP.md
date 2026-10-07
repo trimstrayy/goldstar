@@ -54,3 +54,12 @@ The admin **Setup / health** route checks the connection, authenticated user/pro
 ## 6. Operational notes
 
 The browser is responsible for presentation and input validation only. Totals, discount math, birthday coupon validation, loyalty counting, ledger changes and spin results remain database-owned. Receipt totals must be read back from the `sales` row after completion. All “today” logic and displayed dates use Asia/Kathmandu, and currency uses `Rs.` with Indian digit grouping.
+
+## Loyalty coupon migration
+
+Apply `supabase/migrations/20261007084500_loyalty_coupons.sql` to the connected Supabase project. It adds `loyalty_coupons`, links redemptions with `loyalty_coupon_id`, and exposes:
+
+- `issue_loyalty_coupons(customer_id)`: reconciles completed cycles and issues one 15% code per cycle.
+- `redeem_loyalty_coupon_stack(sale_id, coupon_codes[])`: validates ownership and availability, compounds all selected codes server-side, updates the price/discount totals, and marks every code redeemed.
+
+The Setup / health screen checks the table plus both RPC endpoints. The **Customers** page is the primary workflow: open a customer, add products/sizes/prices and loyalty pairs, then apply all available discount codes. Payment-method selection is intentionally removed from the loyalty UI; the underlying legacy sales record uses the neutral `other` value only because that existing table requires a payment-method field.
