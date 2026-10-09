@@ -63,3 +63,8 @@ Apply `supabase/migrations/20261007084500_loyalty_coupons.sql` and then `supabas
 - `redeem_loyalty_coupon_stack(sale_id, coupon_codes[])`: validates ownership and availability, sums all selected 15% codes server-side (capped at 100%), updates the price/discount totals, and marks every code redeemed.
 
 The Setup / health screen checks the table plus both RPC endpoints. The **Customers** page is the primary workflow: open a customer, add products/sizes/prices and loyalty pairs, then apply all available discount codes. Payment-method selection is intentionally removed from the loyalty UI; the underlying legacy sales record uses the neutral `other` value only because that existing table requires a payment-method field.
+
+
+## Stacked loyalty redemption constraint fix
+
+Apply `supabase/migrations/20261009081000_allow_stacked_loyalty_redemptions.sql` after the loyalty-coupon migrations. A sale may redeem multiple loyalty coupons, so redemption uniqueness is enforced per `(sale_id, loyalty_coupon_id)` rather than per sale. If a client-side loyalty save fails after creating a sale, the app marks that incomplete sale `voided` so a retry does not leave an extra completed record.
