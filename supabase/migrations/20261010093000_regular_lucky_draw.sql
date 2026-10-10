@@ -19,9 +19,9 @@ alter table public.regular_lucky_draw_tickets enable row level security;
 drop policy if exists regular_lucky_draw_tickets_staff_select on public.regular_lucky_draw_tickets;
 create policy regular_lucky_draw_tickets_staff_select on public.regular_lucky_draw_tickets for select using (public.is_staff());
 drop policy if exists regular_lucky_draw_tickets_staff_insert on public.regular_lucky_draw_tickets;
-create policy regular_lucky_draw_tickets_staff_insert on public.regular_lucky_draw_tickets for insert with check (public.is_staff());
+create policy regular_lucky_draw_tickets_staff_insert on public.regular_lucky_draw_tickets for insert with check (public.is_manager());
 drop policy if exists regular_lucky_draw_tickets_staff_update on public.regular_lucky_draw_tickets;
-create policy regular_lucky_draw_tickets_staff_update on public.regular_lucky_draw_tickets for update using (public.is_staff()) with check (public.is_staff());
+create policy regular_lucky_draw_tickets_staff_update on public.regular_lucky_draw_tickets for update using (public.is_manager()) with check (public.is_manager());
 
 create or replace function public.generate_regular_lucky_draw_tickets(p_draw_date date)
 returns integer
@@ -31,6 +31,7 @@ declare
   v_count integer;
 begin
   if not public.is_manager() then raise exception 'manager authorization required'; end if;
+  if p_draw_date is null then return 0; end if;
   insert into public.regular_lucky_draw_tickets(draw_date, customer_id, ticket_number, created_by)
   select p_draw_date, c.id,
          'RLD-' || to_char(p_draw_date, 'YYYYMMDD') || '-' || lpad((coalesce((select count(*) from public.regular_lucky_draw_tickets t0 where t0.draw_date = p_draw_date), 0) + row_number() over (order by c.full_name, c.id))::text, 4, '0'),
