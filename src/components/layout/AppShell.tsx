@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useState, type ReactNode } from 'react'
-import { Bell, Cake, Command, Gift, LayoutDashboard, LogOut, Menu, Moon, Search, Settings, Sparkles, Sun, Users, X } from 'lucide-react'
+import { Bell, Cake, Command, Gift, LayoutDashboard, LogOut, Menu, Moon, Search, Settings, Sparkles, Sun, Ticket, Users, X } from 'lucide-react'
 import type { Role } from '../../types/db'
 import { Button } from '../ui/atoms'
 import { canSee, isAdmin, isManager } from '../../lib/permissions'
@@ -10,6 +10,7 @@ const nav = [
   { to: '/', label: 'Loyalty overview', icon: LayoutDashboard, section: 'dashboard' },
   { to: '/customers', label: 'Customers', icon: Users, section: 'customers' },
   { to: '/birthdays', label: 'Birthdays & messages', icon: Cake, section: 'birthdays', accent: true },
+  { to: '/regular-lucky-draw', label: 'RegularLuckyDraw', icon: Ticket, section: 'regular-lucky-draw' },
   { to: '/legacy-import', label: 'Legacy import', icon: Command, section: 'legacy-import' },
   { to: '/reports', label: 'Discount reports', icon: Command, section: 'reports' },
   { to: '/settings', label: 'Settings', icon: Settings, section: 'settings' },

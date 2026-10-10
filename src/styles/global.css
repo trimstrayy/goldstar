@@ -25,4 +25,8 @@ input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px s
   .print-receipt, .print-receipt * { visibility: visible; }
   .print-receipt { position: absolute; left: 0; top: 0; width: 80mm; color: #000; background: #fff; }
   .no-print { display: none !important; }
+  .print-draw-page, .print-draw-page * { visibility: visible; }
+  .print-draw-page { position: absolute; left: 0; top: 0; width: 100%; color: #000; background: #fff; padding: 12mm; }
+  .print-draw-page button, .print-draw-page input, .print-draw-page textarea { display: none !important; }
+  .print-draw-page .rounded-2xl { break-inside: avoid; }
 }
