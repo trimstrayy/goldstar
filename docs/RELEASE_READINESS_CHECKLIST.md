@@ -16,6 +16,7 @@ Use this checklist with a connected Supabase project and an admin/manager test a
 ### Customers and loyalty
 
 - [ ] Add customer validates Nepali phone format, duplicate phones, required name, birthday, and consent.
+- [ ] Add customer requires the initial product, size, pair quantity, and price; saving creates the customer and first loyalty purchase together, shows confirmation, and redirects to the customer profile.
 - [ ] Customer search works by partial phone and misspelled name; empty, loading, and error states are visible.
 - [ ] A 9/10 customer has no loyalty discount before the qualifying pair is added.
 - [ ] The 10th qualifying pair shows a 15% reward at the discount step, applies the discount to the eligible 10th pair, updates the cycle, and does not issue the reward twice.
