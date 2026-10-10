@@ -27,10 +27,10 @@ Use this checklist with a connected Supabase project and an admin/manager test a
 
 ### Separate RegularLuckyDraw campaign
 
-- [ ] Apply `20261010093000_regular_lucky_draw.sql` and confirm the table and RPCs are reachable from `/setup`.
+- [ ] Apply `20261010093000_regular_lucky_draw.sql` and then `20261010094500_regular_lucky_draw_daily_customers.sql`; confirm the table and RPCs are reachable from `/setup`.
 - [ ] Manager/admin can open **RegularLuckyDraw**; cashier access is intentionally denied.
-- [ ] Selecting a date and generating tickets creates exactly one ticket per active customer for that date; running generation again is idempotent.
-- [ ] Tickets have readable unique numbers, customer name/phone, draw date context, and a print-friendly card/register layout.
+- [ ] Selecting a date and generating tickets creates exactly one ticket only for customers with a completed purchase on that date in Asia/Kathmandu; customers who did not buy that day receive no ticket, and running generation again is idempotent.
+- [ ] Tickets are numbered in first-come order as `GSB-RLD-yyyymmdd-01`, `GSB-RLD-yyyymmdd-02`, and so on, and include customer name/phone, draw date context, and a print-friendly card/register layout.
 - [ ] Staff can physically select a hardcopy ticket and record exactly one winner for the day with an optional prize note.
 - [ ] Winner history remains visible after refresh; selecting a replacement winner does not create a second active winner.
 - [ ] Lucky-draw tickets, winners, and prize notes never change sales, loyalty pairs, loyalty coupons, birthday coupons, discounts, or customer reward readiness.
