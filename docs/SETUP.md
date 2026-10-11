@@ -79,3 +79,13 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-or-anon-key
 ```
 
 `VITE_SUPABASE_ANON_KEY` is also accepted as an alias for the key. Only publishable/anon keys belong in browser environment variables; never put a Supabase service-role key in `.env.local`. Restart the Vite server after changing `.env.local`. The connection screen remains available as a fallback when the variables are absent.
+
+## Production-start reset
+
+Apply `supabase/migrations/20261011080000_reset_showroom_test_data.sql` once before opening the showroom. It deletes customer records and operational/test records (sales, sale items, loyalty ledger, coupons, redemptions, birthday messages/coupons, lucky-draw tickets, legacy staging, and audit history). It preserves authentication users, staff profiles, showrooms, loyalty settings, birthday tiers, wheel segments, message templates, and the database contract.
+
+This reset is destructive and should only be run after confirming that test data is not needed. Take a database backup first.
+
+## First showroom administrator
+
+A SQL data migration intentionally does not create an Auth password. Create the requested Auth user in Supabase Dashboard → Authentication → Users with the agreed email `GSB@loyalty.com` and password, enable email confirmation for the user, then add or update the matching `staff_profiles` row with `role = 'admin'`, `is_active = true`, and the active showroom id. Do not put the password in a migration, `.env.local`, Git, or project documentation.
