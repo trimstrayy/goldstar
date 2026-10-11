@@ -68,3 +68,14 @@ The Setup / health screen checks the table plus both RPC endpoints. The **Custom
 ## Stacked loyalty redemption constraint fix
 
 Apply `supabase/migrations/20261009081000_allow_stacked_loyalty_redemptions.sql` after the loyalty-coupon migrations. A sale may redeem multiple loyalty coupons, so redemption uniqueness is enforced per `(sale_id, loyalty_coupon_id)` rather than per sale. If a client-side loyalty save fails after creating a sale, the app marks that incomplete sale `voided` so a retry does not leave an extra completed record.
+
+## Local Supabase environment variables
+
+For local development, create `.env.local` in the project root. Vite loads this file automatically at startup:
+
+```env
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-or-anon-key
+```
+
+`VITE_SUPABASE_ANON_KEY` is also accepted as an alias for the key. Only publishable/anon keys belong in browser environment variables; never put a Supabase service-role key in `.env.local`. Restart the Vite server after changing `.env.local`. The connection screen remains available as a fallback when the variables are absent.

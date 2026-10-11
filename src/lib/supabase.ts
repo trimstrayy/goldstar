@@ -5,8 +5,10 @@ const LOCAL_URL = 'goldstar.supabase.url'
 const LOCAL_KEY = 'goldstar.supabase.publishable_key'
 
 export function getSupabaseCredentials() {
+  // Vite exposes only VITE_* variables to browser code. .env.local is loaded
+  // automatically by Vite and is intentionally ignored by git.
   const url = (import.meta.env.VITE_SUPABASE_URL || SUPABASE_URL || localStorage.getItem(LOCAL_URL) || '').trim()
-  const key = (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY || localStorage.getItem(LOCAL_KEY) || '').trim()
+  const key = (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY || SUPABASE_PUBLISHABLE_KEY || localStorage.getItem(LOCAL_KEY) || '').trim()
   return { url, key, ready: Boolean(url && key) }
 }
 
